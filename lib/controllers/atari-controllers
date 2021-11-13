@@ -1,0 +1,16 @@
+#pragma once
+
+#include "bits/axis_event.h"
+#include "bits/button_event.h"
+#include "bits/classic.h"
+#include "bits/collection.h"
+#include "bits/controller.h"
+#include "bits/device_event.h"
+#include "bits/event.h"
+#include "bits/generic.h"
+#include "bits/haptic.h"
+#include "bits/haptic_device_types.h"
+#include "bits/haptic_effect.h"
+#include "bits/haptic_player.h"
+#include "bits/haptic_pulse_effect.h"
+#include "bits/modern.h"
