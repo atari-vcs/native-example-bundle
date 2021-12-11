@@ -20,7 +20,7 @@ REQUIRED_LIBS=(
 )
 
 cmake "$@"
-make
+make -j $(nproc)
 mkdir -p lib
 
 set +e

@@ -1,0 +1,11 @@
+build:
+  image: debian:buster-slim
+  stage: build
+  script:
+    - apt-get update
+    - apt-get install -y cmake pkg-config build-essential libsdl2-dev libsdl2-mixer-dev libsdl2-ttf-dev
+    - ./make-bundle.sh .
+  artifacts:
+    paths:
+      - '*.zip'
+    expire_in: 1 week
