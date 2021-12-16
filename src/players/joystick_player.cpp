@@ -24,7 +24,7 @@ bool joystick_player::handle_event(std::shared_ptr<controllers::event const> evt
         get_car()->set_turn(axis->get_value());
         break;
       case controllers::axis::stick_twist:
-        get_car()->set_theta(get_car()->theta() + 360*(M_PI/180.0) * axis->get_value());
+        get_car()->set_theta(get_car()->theta() - 360*(M_PI/180.0) * axis->get_value());
         break;
       default:
         break;
