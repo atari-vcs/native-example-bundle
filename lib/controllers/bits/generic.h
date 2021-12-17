@@ -16,7 +16,7 @@ class generic: public controller,
                public std::enable_shared_from_this<generic> {
 public:
   explicit generic(SDL_GameController *raw);
-  ~generic();
+  virtual ~generic();
 
   virtual std::string mapping() const;
 

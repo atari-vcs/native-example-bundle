@@ -29,7 +29,7 @@ car::car(vec2 const & pos, unsigned color, std::shared_ptr<model> model)
 void car::draw() const {
   glPushMatrix();
   glTranslated(pos_.x(), pos_.y(), 0);
-  glRotated(-theta_ * 180/M_PI, 0, 0, 1);
+  glRotated(theta_ * 180/M_PI, 0, 0, -1);
   set_color(color_);
   model_->draw();
   glPopMatrix();

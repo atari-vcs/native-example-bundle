@@ -44,6 +44,7 @@ class car {
   vec2 vel() const {
     return vel_;
   }
+  // theta increases anticlockwise
   double theta() const {
     return theta_;
   }

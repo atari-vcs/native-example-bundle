@@ -187,7 +187,7 @@ title_screen(std::shared_ptr<controllers::collection> cs,
                   axis->get_axis() == controllers::axis::stick_x ) {
                 slots[i].angle_rate = 180 * M_PI/180 * axis->get_value();
               } else if( axis->get_axis() == controllers::axis::stick_twist ) {
-                slots[i].angle += 180 * M_PI/180 * axis->get_value();
+                slots[i].angle += 360 * M_PI/180 * axis->get_value();
               }
               break;
             }

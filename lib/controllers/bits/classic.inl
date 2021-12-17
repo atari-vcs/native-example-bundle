@@ -8,7 +8,7 @@ namespace controllers {
 
 inline classic::classic(SDL_Joystick *raw)
   : controller(SDL_JoystickInstanceID(raw)),
-    twist_(0.005),
+    twist_(0.05),
     haptic_(std::make_unique<haptic<single_rumble>>(SDL_HapticOpenFromJoystick(raw)))
 {}
 
@@ -19,8 +19,10 @@ inline classic::~classic() {
 inline void classic::update(std::uint64_t dt, std::vector<std::unique_ptr<event>>& events) {
   controller::update(dt, events);
 
-  double const change = twist_.update(dt);
-  events.push_back(axis_event::motion(SDL_GetTicks(), shared_from_this(), axis::stick_twist, change));
+  auto change = convert_axis_value(axis::stick_twist, twist_.update(dt));
+  if( change != 0 ) {
+    events.push_back(axis_event::motion(SDL_GetTicks(), shared_from_this(), axis::stick_twist, change));
+  }
 
   if( haptic_ ) {
     haptic_->update(dt);
@@ -40,6 +42,7 @@ inline void classic::reopen() {
   if( haptic_ ) {
     haptic_ = std::make_unique<haptic<single_rumble>>(SDL_HapticOpenFromJoystick(raw_));
   }
+  on_reopen(raw_);
 }
 
 inline void classic::play_haptic_effect(std::shared_ptr<haptic_effect<single_rumble> const> effect) {
@@ -59,10 +62,10 @@ inline void classic::handle_event(SDL_Event const &evt, std::vector<std::unique_
   case SDL_JOYAXISMOTION:
     {
       auto axis = convert_axis(evt.jaxis.axis);
-      auto value = convert_axis_value(evt.jaxis.axis, evt.jaxis.value);
       if( axis == axis::stick_twist ) {
-        twist_.set_value(value);
+        twist_.set_value(evt.jaxis.value);
       } else {
+        auto value = convert_axis_value(axis, evt.jaxis.value);
         events.push_back(axis_event::motion(evt.jaxis.timestamp, shared_from_this(), axis, value));
       }
     }
@@ -125,10 +128,10 @@ inline axis classic::convert_axis(std::uint8_t axis) const {
   }
 }
 
-inline double classic::convert_axis_value(std::uint8_t axis, std::int16_t value) const {
-  switch( axis ) {
-  case 0:
-    // Twist axis
+inline double classic::convert_axis_value(axis a, std::int16_t value) const {
+  switch( a ) {
+  case axis::stick_twist:
+    // Twist axis;
     return value / 32768.0;
   default:
     return 0;
