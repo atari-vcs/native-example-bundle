@@ -1,11 +1,11 @@
+include:
+  - project: 'atari/bundle-ci'
+    file: '/bundle-ci.yml'
+    ref: 'main'
+
 build:
-  image: debian:buster-slim
-  stage: build
   script:
-    - apt-get update
-    - apt-get install -y cmake pkg-config build-essential libsdl2-dev libsdl2-mixer-dev libsdl2-ttf-dev
-    - ./make-bundle.sh .
-  artifacts:
-    paths:
-      - '*.zip'
-    expire_in: 1 week
+    - mkdir build
+    - cd build
+    - make-bundle.sh ../native-indy800-example.yaml
+    - mv *.bundle native-indy800-example.log ..

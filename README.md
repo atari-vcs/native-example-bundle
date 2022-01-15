@@ -10,7 +10,7 @@ so, go to
 
   https://atari-vcs:3030/
 
-and select `Upload`. Select the file `native-indy800-example_0.1.zip`
+and select `Upload`. Select the file `native-indy800-example_0.1.0.zip`
 built from this repository. You can then launch this game, like any
 Homebrew title, from the same interface.
 
@@ -36,24 +36,17 @@ Press (A) and then (Menu) to start a game.
 
 ## Building
 
-The following instructions require Docker to be installed, and a Linux
-machine with `bash`
 
-1. Build the docker image in this directory with
-```sh
-./docker_build.sh
-```
+You can create the bundle by running
 
-2. Make a build directory
-```sh
-mkdir build
-```
+    mkdir build
+    cd build
+    make_bundle.sh ../native-indy800-example.yaml
 
-3. Run the native build script from your build directory
-```sh
-cd build
-../native_build.sh
-```
+in any suitable Linux-like environment with the
+[bundle-gen](https://github.com/atari-vcs/bundle-gen) script
+[`make-bundle.sh`](https://github.com/atari-vcs/bundle-gen/blob/main/make-bundle.sh)
+installed in your PATH, and Docker installed on your machine.
 
 ## License
 

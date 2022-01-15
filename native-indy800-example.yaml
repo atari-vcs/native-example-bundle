@@ -1,0 +1,18 @@
+Name: "Native Indy 800 Example"
+HomebrewID: "NativeIndy800Example"
+Type: Game
+Exec: bin/native
+
+Build:
+  VersionFile: version.txt
+  RequiredPackages:
+    - cmake
+    - g++
+  RequiredModules:
+    - mod/sdl2-mixer.mod
+  BuildCommand: build_script.sh
+  Executables:
+    - native
+  Resources:
+    - res/
+  
